@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+  meta-ms-process-app:
+    build:
+      context: ${META_MS_PROCESS_BASEPATH:-.}
+      dockerfile: docker/node/Dockerfile
+    container_name: meta-ms-process-app
+    image: meta-ms-process-app
+    ports:
+      - ${META_MS_PROCESS_PORT:-3000}:3000
+    volumes:
+      - ${META_MS_PROCESS_BASEPATH:-.}/:/app/:delegated
+      - /app/node_modules
+    networks:
+      - app-network
+    depends_on:
+      - meta-ms-db
